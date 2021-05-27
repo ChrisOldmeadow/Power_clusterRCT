@@ -1,0 +1,7 @@
+#+TITLE: Readme
+
+
+* About
+
+
+Simulating the oprating characteristics (power, type 1 error rates) for cluster RCTs with varios outcome types

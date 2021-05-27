@@ -22,10 +22,6 @@ designcRCT <- function(m,
 
 
 
-
-
-
-
 simcRCT <- function(df,
                     nsim,
                     p1, # prev of outcome at pre intervetion
