@@ -52,16 +52,28 @@ fit_all <- pbreplicate(
   nsims,
   sim_cRCT(
     k1 = 6, k2 = 6, m = 38,
-    p = c(.3, .4, .3), or = 1.3, rho = 0.05
+    p = c(.3, .4, .3), or = 2.5, rho = 0.05
   )
 )
 
 sum(is.na(fit_all)) / nsims
 mean(fit_all < 0.05, na.rm = TRUE)
 
-# test <- sim_cRCT(k1 = 6, k2 = 6, m = 38, p = c(.1, .3, .6), or = 1.5, rho = .05)
-# table(test$y[test$x == 0]) / (0.5*nrow(test))
-# table(test$y[test$x == 1]) / (0.5*nrow(test))
-#
-#
-# exp(MASS::polr( factor(y) ~ x, data = test)$coefficients)
+
+## validate agains the popower command in Hmisc
+n <- 648
+# clusters
+k <- 12
+# intra class correlation
+icc <- 0.05
+
+# Design effect
+deff <- 1 + icc * ((n / k) - 1)
+# effective sample size
+ess <- n / deff
+# power with ess
+p1 <- c(0.525, 0.3, 0.175)
+p2 <- pomodm(p = p, odds.ratio = 2.5)
+pavg <- (p + p2) / 2
+# check wth average powers
+popower(pavg, 2.5, n = ceiling(ess), alpha = 0.05)

@@ -1,8 +1,5 @@
-library(plyr)
-library(lme4)
-library(MASS) ## for glmmPQL
-library(pbapply)
 
+pacman::p_load(plyr, lme4, MASS, pbapply)
 
 
 
@@ -89,3 +86,4 @@ fitAll <- t(pbsapply(seq(1000), function(i) fitsimPQL(i)))
 
 pow <- mean(fitAll[, "p"] < 0.05, na.rm = TRUE)
 pow
+
